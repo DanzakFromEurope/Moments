@@ -35,9 +35,9 @@ public class WallActivity extends AppCompatActivity {
             }
         });
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference().child("Testing").child("Test");
-        myRef.setValue("testtest");
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference myRef = database.getReference().child("Testing").child("Test");
+//        myRef.setValue("testtest");
 
 
 //        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();

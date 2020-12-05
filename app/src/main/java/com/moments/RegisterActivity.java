@@ -22,6 +22,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText editTextEmail;
     private EditText editTextPassword;
+    private EditText getEditTextPasswordAgain;
     private Button register;
 
     private FirebaseAuth firebaseAuth;
@@ -33,6 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         editTextEmail = findViewById(R.id.editTextRegisterEmail);
         editTextPassword = findViewById(R.id.editTextRegisterPassword);
+        getEditTextPasswordAgain = findViewById(R.id.editTextRegisterPasswordAgain);
         register = findViewById(R.id.registerSubmit);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -42,11 +44,14 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
+                String passwordAgain = getEditTextPasswordAgain.getText().toString();
 
                 if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
                     Toast.makeText(getApplicationContext(), "Enter your details", Toast.LENGTH_SHORT).show();
                 } else if (password.length() < 8) {
                     Toast.makeText(getApplicationContext(), "Password is to short", Toast.LENGTH_SHORT).show();
+                } else if (password != passwordAgain) {
+                    Toast.makeText(getApplicationContext(), "Passwords don't match", Toast.LENGTH_SHORT).show();
                 } else {
                     registerUser(email, password);
                 }
