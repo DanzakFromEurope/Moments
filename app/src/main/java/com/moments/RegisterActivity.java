@@ -80,6 +80,8 @@ public class RegisterActivity extends AppCompatActivity {
                     map.put("email", email);
                     map.put("username", username);
                     map.put("id", firebaseAuth.getCurrentUser().getUid());
+                    map.put("profileImgUrl", "default");
+                    map.put("bio", "");
 
                     firebaseRootRef.child("Users").child(firebaseAuth.getCurrentUser().getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
