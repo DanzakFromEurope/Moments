@@ -23,17 +23,17 @@ public class WallActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wall);
 
-        logout = findViewById(R.id.logout);
-
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_SHORT).show();
-
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            }
-        });
+//        logout = findViewById(R.id.logout);
+//
+//        logout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                FirebaseAuth.getInstance().signOut();
+//                Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_SHORT).show();
+//
+//                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//            }
+//        });
 
 //        FirebaseDatabase database = FirebaseDatabase.getInstance();
 //        DatabaseReference myRef = database.getReference().child("Testing").child("Test");
