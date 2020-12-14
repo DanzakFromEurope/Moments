@@ -104,7 +104,7 @@ public class PostActivity extends AppCompatActivity {
                     map.put("postId", postId);
                     map.put("imageUrl", imageUrl);
                     map.put("description", description.getText().toString());
-                    map.put("publisher", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    map.put("author", FirebaseAuth.getInstance().getCurrentUser().getUid());
 
                     ref.child(postId).setValue(map);
 

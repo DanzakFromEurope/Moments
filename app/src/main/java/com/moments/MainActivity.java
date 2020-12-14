@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -28,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
 
+    private SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +43,29 @@ public class MainActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.editTextLoginPassword);
 
         firebaseAuth = FirebaseAuth.getInstance();
+
+        firebaseAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuthData) {
+                FirebaseUser firebaseUser = firebaseAuthData.getCurrentUser();
+                if (firebaseUser != null) {
+                    String userId = firebaseUser.getUid();
+                    String userEmail = firebaseUser.getEmail();
+
+                    sharedPreferences = getPreferences(MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                    editor.putString("firebasekey", userId);
+                    editor.commit();
+
+                    editTextEmail.setText(userEmail);
+
+                    Toast.makeText(getApplicationContext(), "User already logged in", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "You need to log in", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         login.setOnClickListener(v -> {
             String email = editTextEmail.getText().toString();
