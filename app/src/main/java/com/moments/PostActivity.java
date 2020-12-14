@@ -3,9 +3,17 @@ package com.moments;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
@@ -48,6 +56,29 @@ public class PostActivity extends AppCompatActivity {
     private Uri imageUri;
     private String imageUrl;
 
+    private String latitude;
+    private String longitude;
+
+//    LocationManager locationManager;
+//    LocationListener locationListener;
+
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//
+//        if (requestCode == 1) {
+//            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                startListeningForLocation();
+//            }
+//        }
+//    }
+
+//    private void startListeningForLocation() {
+//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+//            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+//        }
+//    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +88,24 @@ public class PostActivity extends AppCompatActivity {
         imageAdded = findViewById(R.id.image_added);
         post = findViewById(R.id.post);
         description = findViewById(R.id.description);
+
+//        locationListener = new LocationListener() {
+//            @Override
+//            public void onLocationChanged(@NonNull Location location) {
+//                updateLocationInfo(location);
+//            }
+//        };
+//
+//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+//        } else {
+//            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+//            Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+//
+//            if (lastKnownLocation != null) {
+//                updateLocationInfo(lastKnownLocation);
+//            }
+//        }
 
         close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +124,11 @@ public class PostActivity extends AppCompatActivity {
 
         CropImage.activity().start(this);
     }
+
+//    private void updateLocationInfo(Location location) {
+//        latitude = Double.toString(location.getLatitude());
+//        longitude = Double.toString(location.getLongitude());
+//    }
 
     private void uploadImage() {
         if (imageUri != null) {
@@ -105,6 +159,8 @@ public class PostActivity extends AppCompatActivity {
                     map.put("imageUrl", imageUrl);
                     map.put("description", description.getText().toString());
                     map.put("author", FirebaseAuth.getInstance().getCurrentUser().getUid());
+//                    map.put("latitude", latitude);
+//                    map.put("longitude", longitude);
 
                     ref.child(postId).setValue(map);
 

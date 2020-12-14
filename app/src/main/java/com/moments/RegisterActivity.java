@@ -34,7 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private DatabaseReference firebaseRootRef;
 
-    ProgressDialog pd;
+    //ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
